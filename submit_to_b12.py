@@ -29,8 +29,8 @@ def required_env(name: str) -> str:
 
 def build_links_from_github_env() -> tuple[str, str]:
     # GitHub provides these automatically in Actions
-    server_url = required_env("GITHUB_SERVER_URL")          # e.g. https://github.com
-    repo = required_env("GITHUB_REPOSITORY")                # e.g. username/reponame
+    server_url = required_env("GITHUB_SERVER_URL")          
+    repo = required_env("GITHUB_REPOSITORY")                
     run_id = required_env("GITHUB_RUN_ID")                  # e.g. 1234567890
 
     repository_link = f"{server_url}/{repo}"
@@ -91,7 +91,6 @@ def main() -> None:
     if not (isinstance(data, dict) and data.get("success") is True and "receipt" in data):
         raise SystemExit(f"Unexpected response: {resp_body}")
 
-    # This is what B12 wants you to copy/paste into the application form
     print(data["receipt"])
 
 if __name__ == "__main__":
