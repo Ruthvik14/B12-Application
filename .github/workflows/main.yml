@@ -1,0 +1,27 @@
+name: B12 Submission
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Submit application payload to B12
+        env:
+          B12_NAME: Ruthvik Kumar Lakka
+          B12_EMAIL: ruthvik.kumar14@gmail.com
+          B12_RESUME_LINK: https://docs.google.com/document/d/1ZLh_35Rh7-iSsyzyT1cFBqswGYhlShgzV-5HnoSYvfE/export?format=pdf
+          B12_SIGNING_SECRET: hello-there-from-b12
+        run: |
+          python submit_to_b12.py
