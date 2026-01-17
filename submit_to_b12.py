@@ -10,11 +10,9 @@ from datetime import datetime, timezone
 B12_ENDPOINT = "https://b12.io/apply/submission"
 
 def iso8601_utc_now() -> str:
-    # ISO 8601 with milliseconds and Z
     return datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
 
 def canonical_json_bytes(payload: dict) -> bytes:
-    # Keys sorted, no extra whitespace, UTF-8 encoded
     s = json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
     return s.encode("utf-8")
 
@@ -28,10 +26,9 @@ def required_env(name: str) -> str:
     return v
 
 def build_links_from_github_env() -> tuple[str, str]:
-    # GitHub provides these automatically in Actions
     server_url = required_env("GITHUB_SERVER_URL")          
     repo = required_env("GITHUB_REPOSITORY")                
-    run_id = required_env("GITHUB_RUN_ID")                  # e.g. 1234567890
+    run_id = required_env("GITHUB_RUN_ID")                  
 
     repository_link = f"{server_url}/{repo}"
     action_run_link = f"{server_url}/{repo}/actions/runs/{run_id}"
